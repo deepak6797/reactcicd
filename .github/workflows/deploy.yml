@@ -17,24 +17,20 @@ jobs:
         with:
           node-version: 18.x
 
-    #   - name: Git Set Config
-    #     run: |
-    #         git remote set-url origin git@github.com:deepak6797/reactcicd.git
-    #         git config user.email "deepakg6797@gmail.com"
-    #         git config user.name "deepak6797"
-    #         git config --list
+      - name: Git Set Config
+        run: |
+            git remote set-url origin git@github.com:deepak6797/reactcicd.git
+            git config user.email "deepakg6797@gmail.com"
+            git config user.name "deepak6797"
+            git config --list
     
-    #   - name: React Build Stage
-    #     run: |
-    #       rm -rf node_modules
-    #       rm -rf build
-    #       npm install
-    #       npm run build
-    #       ls -la
-    #       git checkout -b build
-    #       git add build
-    #       git commit -m "build file"
-    #       git push -u origin build
+      - name: React Build Stage
+        run: |
+          rm -rf node_modules
+          rm -rf build
+          npm install
+          npm run build
+          ls -la
         
       - name: Set key for git
         run: |
@@ -43,10 +39,9 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
             cat ~/.ssh/id_rsa
     
-    #   - name: Push to build branch
-    #     run: |
-    #         git checkout -b build
-    #         git add build
-    #         git commit -m "build file"
-    #         git push -u origin build
-      
+      - name: Push to build branch
+        run: |
+            git checkout -b build
+            git add build
+            git commit -m "build file"
+            git push -u origin build
