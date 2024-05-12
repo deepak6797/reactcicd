@@ -36,8 +36,8 @@ jobs:
             AWS_IP: ${{ secrets.AWS_IP }}
             AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
         run: |
-            rsync -ahPz build/* $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
-            rsync -ahPz run.sh $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
+            rsync -ahPz -e "ssh -i ~/.ssh/id_rsa" build/* $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
+            rsync -ahPz -e "ssh -i ~/.ssh/id_rsa" run.sh $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
 
       - name: Copy file to server
         env:
