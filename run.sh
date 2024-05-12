@@ -1,3 +1,3 @@
 #!/bin/bash
 
-server -s .
+serve -s .
