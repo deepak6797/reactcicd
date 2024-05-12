@@ -16,40 +16,40 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18.x
-    
-      - name: React Build Stage
+
+      - name: Git Set Config
+        env:
+          MY_EMAIL: ${{ secrets.MY_EMAIL }}
+          MY_USERNAME: ${{ secrets.MY_USERNAME }}
         run: |
-          rm -rf node_modules
-          rm -rf build
-          npm install
-          npm run build
+            # git remote set-url origin git@github.com:deepak6797/reactcicd.git
+            git config --global user.email "$MY_EMAIL"
+            git config --global user.name "$MY_USERNAME"
+            git config --list
     
-      - name: Set up SSH key and whitelist EC2 IP address
-        run: |
-            mkdir -p ~/.ssh
-            echo "${{ secrets.AWS_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-            chmod 400 ~/.ssh/id_rsa
-            ssh-keyscan ${{ secrets.AWS_IP }} >> ~/.ssh/known_hosts
+      # - name: React Build Stage
+      #   run: |
+      #     rm -rf node_modules
+      #     rm -rf build
+      #     npm install
+      #     npm run build
         
-      - name: Copy file to server
-        env:
-            AWS_IP: ${{ secrets.AWS_IP }}
-            AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
-        run: |
-            rsync -ahPz build/* $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
-            rsync -ahPz run.sh $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
-
-      - name: Copy file to server
-        env:
-            AWS_IP: ${{ secrets.AWS_IP }}
-            AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
-        run: |
-            ssh -o StrictHostKeyChecking=no $AWS_USERNAME@$AWS_IP "chmod +x /home/ubuntu/reactjsapp/run.sh && /home/ubuntu/reactjsapp/run.sh &"
-
-
-      - name: Clean up SSH key
-        if: always()
-        run: rm -f ~/.ssh/id_rsa
-
-# rsync -ahPz -e "ssh -i ~/.ssh/id_rsa" build/* $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
-# rsync -ahPz -e "ssh -i ~/.ssh/id_rsa" run.sh $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
+      # - name: Set key for git
+      #   run: |
+      #       mkdir -p ~/.ssh
+      #       echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
+      #       chmod 600 ~/.ssh/id_rsa
+    
+      # - name: Push to build branch
+      #   run: |
+      #       cd build
+      #       git init
+      #       git remote add origin git@github.com:deepak6797/reactcicd.git
+      #       git checkout -b build
+      #       git add .
+      #       git commit -m "build file"
+      #       git push -u origin build
+    
+      # - name: Clean up SSH key
+      #   if: always()
+      #   run: rm -f ~/.ssh/id_rsa
