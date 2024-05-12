@@ -1,4 +1,4 @@
-name: Deploy to Cpanel
+name: React Build and push to build branch
 
 on:
   push:
@@ -27,4 +27,5 @@ jobs:
           git checkout -b build
           git add build
           git commit -m "build file"
+          git remote add origin git@github.com:deepak6797/reactcicd.git
           git push -u origin build
