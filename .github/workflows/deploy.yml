@@ -44,7 +44,7 @@ jobs:
             AWS_IP: ${{ secrets.AWS_IP }}
             AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
         run: |
-            ssh -o StrictHostKeyChecking=no $AWS_USERNAME@$AWS_IP "chmod +x /home/ubuntu/reactjsapp/run.sh && /home/ubuntu/reactjsapp/run.sh"
+            ssh -o StrictHostKeyChecking=no $AWS_USERNAME@$AWS_IP "chmod +x /home/ubuntu/reactjsapp/run.sh && /home/ubuntu/reactjsapp/run.sh &"
 
 
       - name: Clean up SSH key
