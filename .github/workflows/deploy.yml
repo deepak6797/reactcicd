@@ -41,10 +41,12 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
     
       - name: Push to build branch
+        env:
+          REPO_URL: ${{ secrets.REPO_URL }}
         run: |
             cd build
             git init
-            git remote add origin git@github.com:deepak6797/reactcicd.git
+            git remote add origin $REPO_URL
             git checkout -b build
             git add .
             git commit -m "build file"
