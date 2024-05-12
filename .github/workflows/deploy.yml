@@ -50,3 +50,6 @@ jobs:
       - name: Clean up SSH key
         if: always()
         run: rm -f ~/.ssh/id_rsa
+
+# rsync -ahPz -e "ssh -i ~/.ssh/id_rsa" build/* $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
+# rsync -ahPz -e "ssh -i ~/.ssh/id_rsa" run.sh $AWS_USERNAME@$AWS_IP:/home/ubuntu/reactjsapp
