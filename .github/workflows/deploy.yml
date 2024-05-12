@@ -20,7 +20,7 @@ jobs:
       - name: Git Push
         run: |
             git remote -v
-            git remote set-url git@github.com:deepak6797/reactcicd.git
+            git remote set-url origin git@github.com:deepak6797/reactcicd.git
             git remote -v
 
     #   - name: List files in directory
