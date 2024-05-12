@@ -30,18 +30,20 @@ jobs:
           rm -rf build
           npm install
           npm run build
-          ls -la
         
       - name: Set key for git
         run: |
             mkdir -p ~/.ssh
             echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            cat ~/.ssh/id_rsa
     
       - name: Push to build branch
         run: |
             git checkout -b build
-            git add build
+            git add build/*
             git commit -m "build file"
             git push -u origin build
+    
+      - name: Clean up SSH key
+        if: always()
+        run: rm -f ~/.ssh/id_rsa
